@@ -1,39 +1,40 @@
 <template>
   <div>
     <the-header></the-header>
-    <badge-list></badge-list>
-    <user-info
-      :full-name="activeUser.name"
-      :info-text="activeUser.description"
-      :role="activeUser.role"
-    ></user-info>
-    <course-goals #default="slotProps">
-      <h2>{{ slotProps.item }}</h2>
-    </course-goals>
+    <button @click="setSelectedComponent('active-goals')">Active Goals</button>
+    <button @click="setSelectedComponent('manage-goals')">Manage Goals</button>
+    <component :is='selectedComponent'></component>
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader";
-import BadgeList from './components/BadgeList.vue';
-import UserInfo from './components/UserInfo.vue';
-import CourseGoals from './components/CourseGoals.vue';
+// import BadgeList from './components/BadgeList.vue';
+// import UserInfo from './components/UserInfo.vue';
+// import CourseGoals from './components/CourseGoals.vue';
+import ActiveGoals from './components/ActiveGoals';
+import ManageGoals from './components/ManageGoals';
 
 export default {
   components: {
     TheHeader,
-    BadgeList,
-    UserInfo,
-    CourseGoals
+    ActiveGoals,
+    ManageGoals
   },
   data() {
     return {
+      selectedComponent: 'active-goals',
       activeUser: {
         name: 'Maximilian Schwarzmüller',
         description: 'Site owner and admin',
         role: 'admin',
       },
     };
+  },
+  methods: {
+    setSelectedComponent(component) {
+      this.selectedComponent = component;
+    }
   },
 };
 </script>
